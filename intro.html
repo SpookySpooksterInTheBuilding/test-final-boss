@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<title>Tilgangsterminal</title>
+
+<style>
+body {
+  background: radial-gradient(circle at center, #0f2027, #0a0f14 80%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family: "Courier New", monospace;
+  color:#00ffcc;
+  margin:0;
+}
+
+.lock {
+  background: rgba(0,0,0,0.85);
+  padding:40px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(0,255,200,0.2);
+  width:360px;
+  border:1px solid #00ffcc33;
+}
+
+h2 {
+  letter-spacing:2px;
+  margin-bottom:20px;
+}
+
+input {
+  width:100%;
+  padding:12px;
+  font-size:18px;
+  border-radius:8px;
+  border:1px solid #00ffcc66;
+  background:black;
+  color:#00ffcc;
+  text-align:center;
+  outline:none;
+}
+
+input:focus {
+  box-shadow:0 0 10px #00ffcc;
+}
+
+button {
+  background:black;
+  color:#00ffcc;
+  border:1px solid #00ffcc;
+  padding:10px 25px;
+  margin-top:15px;
+  font-size:16px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover {
+  background:#00ffcc;
+  color:black;
+}
+
+.message {
+  margin-top:20px;
+  min-height:24px;
+  font-weight:bold;
+}
+
+.error {
+  color:#ff3b3b;
+  animation:shake 0.3s;
+}
+
+.success {
+  color:#00ff88;
+}
+
+@keyframes shake {
+  0% { transform:translateX(0); }
+  25% { transform:translateX(-5px); }
+  50% { transform:translateX(5px); }
+  75% { transform:translateX(-5px); }
+  100% { transform:translateX(0); }
+}
+
+#nextLink {
+  display:none;
+  margin-top:20px;
+}
+
+#nextLink a {
+  color:#00ff88;
+  text-decoration:none;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="lock">
+  <h2>🔐 TILGANGSTERMINAL</h2>
+  <p>Skriv inn autorisasjonskode</p>
+
+  <input type="password" id="passwordInput" placeholder="SKRIV INN KODE">
+
+  <button onclick="checkPassword()">AUTORISER</button>
+
+  <div class="message" id="message"></div>
+
+  <div id="nextLink">
+    <a href="https://e24.no/naeringsliv/i/vr5j0X/lier-hansens-jaktgjest-simpelthen-latterlig?referer=https%3A%2F%2Fwww.vg.no" target="_blank">
+      ➜ TILGANG GITT – FORTSETT
+    </a>
+  </div>
+</div>
+
+<script>
+const correctPassword = "Karmsund"; // ← ENDRE PASSORD HER
+
+const inputField = document.getElementById("passwordInput");
+inputField.addEventListener("keypress", function(event){
+  if(event.key === "Enter"){
+    checkPassword();
+  }
+});
+
+function checkPassword(){
+  const input = inputField.value.trim();
+  const message = document.getElementById("message");
+  const nextLink = document.getElementById("nextLink");
+
+  if(input.toLowerCase() === correctPassword.toLowerCase()){
+    message.innerText = "✓ TILGANG GODKJENT";
+    message.className = "message success";
+    nextLink.style.display = "block";
+    inputField.disabled = true;
+  } else {
+    message.innerText = "⛔ FEIL KODE – PRØV IGJEN";
+    message.className = "message error";
+    nextLink.style.display = "none";
+    inputField.value = "";
+  }
+}
+</script>
+
+</body>
+
+</html>
+
+
